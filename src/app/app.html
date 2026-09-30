@@ -1,0 +1,215 @@
+<div class="contenedor">
+
+  <h1>CRUD Productos</h1>
+
+  <hr>
+
+
+  <!-- ====================================== -->
+  <!-- FORMULARIO -->
+  <!-- ====================================== -->
+
+  <h2>
+    {{ editandoId !== null ? 'Editar producto' : 'Nuevo producto' }}
+  </h2>
+
+
+  <div>
+
+    <label>
+      Nombre
+    </label>
+
+    <br>
+
+    <input
+      type="text"
+      [(ngModel)]="nombre"
+      placeholder="Ej: Mouse"
+    >
+
+  </div>
+
+
+  <br>
+
+
+  <div>
+
+    <label>
+      Descripción
+    </label>
+
+    <br>
+
+    <textarea
+      [(ngModel)]="descripcion"
+      placeholder="Descripción del producto"
+    ></textarea>
+
+  </div>
+
+
+  <br>
+
+
+  <div>
+
+    <label>
+      Precio
+    </label>
+
+    <br>
+
+    <input
+      type="number"
+      [(ngModel)]="precio"
+      placeholder="Ej: 20.50"
+    >
+
+  </div>
+
+
+  <br>
+
+
+  <!-- BOTÓN GUARDAR -->
+
+  <button
+    type="button"
+    (click)="guardar()"
+  >
+    {{ editandoId !== null ? 'Actualizar' : 'Guardar' }}
+  </button>
+
+
+  <!-- BOTÓN CANCELAR -->
+
+  <button
+    type="button"
+    *ngIf="editandoId !== null"
+    (click)="limpiarFormulario()"
+  >
+    Cancelar
+  </button>
+
+
+  <br>
+  <br>
+
+
+  <!-- MENSAJE -->
+
+  <p *ngIf="mensaje">
+    {{ mensaje }}
+  </p>
+
+
+  <!-- ERROR -->
+
+  <p *ngIf="error">
+    ERROR: {{ error }}
+  </p>
+
+
+  <hr>
+
+
+  <!-- ====================================== -->
+  <!-- LISTA -->
+  <!-- ====================================== -->
+
+  <h2>Productos</h2>
+
+
+  <button
+    type="button"
+    (click)="cargarProductos()"
+  >
+    Recargar
+  </button>
+
+
+  <br>
+  <br>
+
+
+  <table border="1">
+
+    <thead>
+
+      <tr>
+
+        <th>ID</th>
+
+        <th>Nombre</th>
+
+        <th>Descripción</th>
+
+        <th>Precio</th>
+
+        <th>Activo</th>
+
+        <th>Acciones</th>
+
+      </tr>
+
+    </thead>
+
+
+    <tbody>
+
+      <tr
+        *ngFor="let producto of productos"
+      >
+
+        <td>
+          {{ producto.id }}
+        </td>
+
+        <td>
+          {{ producto.nombre }}
+        </td>
+
+        <td>
+          {{ producto.descripcion }}
+        </td>
+
+        <td>
+          {{ producto.precio }}
+        </td>
+
+        <td>
+          {{ producto.activo ? 'Sí' : 'No' }}
+        </td>
+
+        <td>
+
+          <button
+            type="button"
+            (click)="editar(producto)"
+          >
+            Editar
+          </button>
+
+
+          <button
+            type="button"
+            (click)="eliminar(producto.id)"
+          >
+            Borrar
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+
+
+<router-outlet />
